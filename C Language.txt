@@ -1,0 +1,1768 @@
+
+1：取每个位的位数
+
+#include <stdio.h>
+void main(void)
+{
+	int	x;
+	printf("输入一个四位数:");
+	scanf("%d", &x);
+	printf("千位=%d\n", x / 1000% 10);
+	printf("百位=%d\n", x / 100 % 10);
+	printf("十位=%d\n", x / 10  % 10);
+	printf("个位=%d\n", x / 1   % 10);                        //从个位数开始依次取余除10（/10 % 10)
+
+}
+
+
+2：交换x,y的值(不建议使用)
+
+#include <stdio.h>
+int main(void)
+{
+	int x,y;
+	scanf("%d%d",&x,&y);	
+	x = x + y;
+	y = x - y;
+	x = x - y;
+
+	printf("%d%d", x, y);
+	
+} 
+
+2+：水仙花数是指一个n位数（n>=3），它的每个位上的数字的n次幂之和等于它本身，三位数的有（153,370,371.407）
+
+
+#include<stdio.h> 
+int main() 
+{ 
+ int i,a,b,c; 
+ for(i=100;i<1000;i++) 
+ { 
+	 a=i/100; 
+     b=(i/10)%10; 
+     c=i%10; 
+  if((a*a*a+b*b*b+c*c*c)==i) 
+	printf("%d\n",i); 
+ } 
+  return(0); 
+} 
+
+
+
+3:字符串字符1234转化为数字1234
+
+#include <stdio.h>
+int main(void)
+{
+	char s[5] = {"1234"};
+	int i,y=0;
+	for (i = 0; i < 4; i++)
+	{
+		y = y * 10 + s[i] - 48;
+		printf("%d\n", y);
+	}
+} 
+
+
+字符串把所有的大写字符移到后面并且只输出非大写字符
+
+#include<stdio.h>
+#include <string.h>
+
+int main()
+{
+	char s[81];
+	printf("Please input data:");
+	gets(s);
+	int p, i = 0;
+	int j;
+	p = strlen(s);
+	j = p - 1;
+	while (i<j) {
+		while (i<p && (!(s[i]<'Z'&&s[i]>'A')))i++;
+		while ((j>-1) && (s[j]>'A'&&s[j]<'Z'))j--;
+		if (i<j)
+		{
+			char t;
+			t = s[i];
+			s[i] = s[j];
+			s[j] = t;
+		}
+	}
+	s[j + 1] = 0;
+	puts(s);
+}
+
+
+   
+
+4：字符串的遍历  
+#include <stdio.h>
+int main(void)
+{
+	int i = 0;
+	char a='a';                                                 //判断\0是否为真
+	char s[9];
+	printf("Please input data:");
+	gets(s);
+	while (s[i]!='\0')
+		{
+			s[i] = a;
+			puts(s);
+			i++;
+
+
+		}
+		return 0;
+	}  
+
+
+
+#include <stdio.h>
+int main(void)
+{
+	int l, i = 0;
+	char a='a';                                              //测量字符串的有效字符个数
+	char s[9];
+	printf("Please input data:");
+	gets(s);
+	l = strlen(s);
+	for (i; i < l; i++)
+		s[i] = a;
+		puts(s);
+
+		return 0;
+	}  
+
+
+5：字符串复制strcpy
+
+#include <stdio.h>
+int main(void)
+{
+	char s1[9] = "china";
+	char s2[8] = "america ";
+	int i=0, j=0;
+	while (s2[j++] = s1[i++]);               //空循环
+		puts(s2);
+	}  
+
+
+6：malloc的分配和释放
+
+#include <stdio.h>
+int main(void)
+{
+	int * p;
+	p = (int * )malloc(sizeof(int));
+	if (!p) {
+		printf("faiure");
+		return 0;
+	}
+	*p = 5;
+	printf("%d", *p);
+	free(p);
+} 
+
+7：函数形参传值和传地址
+
+#include <stdio.h>
+int exchange(int * p1, int * p2)
+{
+	int t;
+	t = *p1;
+	*p1 = *p2;
+	*p2 = t;
+}
+int main(void)
+{
+	int x, y;
+	scanf("%d%d", &x,&y);
+	exchange(&x, &y);                       //传地址（形参释放，但是值改变）
+	printf("%d%d\n",x,y );
+
+
+} 
+
+
+8:结构体中存入数据并输出每一课的平均值
+
+#include <stdio.h>
+#include<string.h>
+#define  N 3
+struct stu 
+{
+	int num;
+	char name;
+	int chi;                                   //定义结构体类型
+	int Eng;
+	int math;
+};
+void sumscore(struct stu s[], double *pc, double * pe, double *pm)
+{
+	int i;
+	for (i = 0; i < N; i++)
+	{
+		*pc += s[i].chi;                       //定义函数
+		*pe += s[i].Eng;
+		*pm += s[i].math;
+
+
+	}
+}
+int main(void)
+{
+	struct stu s[N];                                    //声明结构体变量
+	int i;
+	char n[20];
+	double sumC=0, sumE=0, sumM=0;
+
+	for (i = 0; i < N; i++)
+	{
+		s[i].num = 03161731 + i;
+		gets(n);
+		strcpy(s[i].name, n);
+		scanf("%d%d%d", &s[i].chi, &s[i].Eng, &s[i].math);
+
+	}
+	sumscore(s, &sumC, &sumE, &sumM);                     //声明求和函数，传首元素地址
+	printf("chi:%lf", sumC / N);
+	printf("Eng:%lf", sumE / N);
+	printf("math:%lf", sumM / N);
+	return 0;
+
+
+}
+
+
+
+9:求总成绩的最大值的那个学生
+
+#include <stdio.h>
+#include<string.h>
+#define  N 3
+struct stu 
+{
+	int num;
+	char name;
+	int chi;
+	int Eng;
+	int math;
+};
+
+struct stu * fmax(struct str  *s[])          //求总成绩的最大值，返回指向最大值结构体数组元素的地址
+{
+	struct stu * p, * pm;
+	int x, max;
+	pm = &s;
+	max = pm->math + pm->chi + pm->Eng;
+	for (p = s + 1; p < s + N; p++)
+	{
+		x = p->math + p->chi + p->Eng;
+		if (x > max) 
+		{
+			max = x;
+			pm = p;
+		}
+		return pm;
+
+
+	}
+}
+int main(void)
+{
+	struct stu s[N];
+	int i;
+	char n[20];
+	struct stu * pmax;
+
+	for (i = 0; i < N; i++)
+	{
+		s[i].num = 03161731+i;
+		gets(n);
+		strcpy(s[i].name, n);
+		scanf("%d%d%d", &s[i].chi, &s[i].Eng, &s[i].math);
+	}
+	pmax=fmax(s);
+	printf("%c", pmax->name);                             //输出总成绩最大值的学生姓名
+
+	return 0;
+
+
+}
+
+
+
+10：按照数学成绩的由高到低进行排序（降序）
+
+void sortmath (struct stu s[])
+{
+	int i, j;
+	struct stu t;
+	for (i = 0; i < N - 1; i++)               
+	{
+		for (j = i+ 1; j < N; j++)
+		{
+			if (s[i].math < s[j].math)
+			{
+				t = s[i];
+				s[i] = s[j];
+				s[j] = t;                 //按照大小交换两给人的信息
+			}
+		}
+	} 
+}
+int main(void)
+{
+	struct stu s[N];
+	int i;
+	char n[20];
+	sortmath (s);
+	for (i = 0; i < N; i++)
+	printf("%s\n", s[i].name);
+	return 0;
+
+
+}
+
+
+
+11：顺序表的删除
+#include <stdio.h>
+
+int del(int key, int  a[])
+{
+	int i, j;
+	for (i = j = 0; i < 5; i++)                //想象出一个数组，重新放值
+	{
+		if (a[i] - key)
+			a[j++] = a[i];
+	}
+	return j;
+}
+int main(void)
+{
+	int j, p;
+	int a[5] = { 2,23,2,54,5 };
+	int key ;
+	printf("please input key");
+	scanf("%d", &key);
+	p=del(key, a);
+	for(j=0;j<p;j++)
+	printf("%d\n", a[j]);
+}
+
+
+
+12：求最大公约数和最小公倍数 （s=(x*y)/k）
+#include <stdio.h>
+int main(void)
+{
+	int x, y, k;
+	printf("please input two data:  ");
+	scanf("%d%d",&x, &y);
+	k = x < y ? x: y;
+	for (; k > 0; k--)                         //	for (k = x < y ? x : y; k > 1 && (x%k || y % k); k--);  升级版（空循环）
+		if (x%k == 0 && y%k == 0)
+			break;
+	printf("%d", k);
+}
+
+
+
+
+13:创建单向链表（正向建链）     尾插
+
+#include <stdio.h>
+#include <stdlib.h>
+# define  N 5
+typedef struct node        //结点结构，类型重命名
+{
+	int data;
+	struct node * next;
+}ElemSN;
+
+ElemSN * creatlink(int a[])                                  //创建链表
+{
+	ElemSN * h = NULL, *tail=NULL, *p;
+	for (int i = 0; i < N; i++)
+	{
+		p = (ElemSN *)malloc(sizeof(ElemSN));       //结点的单元的分配
+		p->data = a[i];
+		p->next = NULL;
+		if (!h)                   //判断是否为头结点
+			h = tail = p;
+		else
+			tail = tail->next = p;      //中间尾                   （尾插） 
+	}
+	return h;
+}
+
+void printlink(ElemSN * h)                                     //输出链表，遍历
+{
+	ElemSN * p;
+	for (p = h; p->next; p = p->next)
+		printf("%5d", p->data);
+
+}
+
+
+int main(void)
+{
+	int a[N] = {1,3,4,5,5};
+	ElemSN * head = NULL;
+	head=creatlink(a);
+	printlink(head);
+	return 0;
+}
+
+
+14：单向链表的遍历，输出链表结点数据的最大值
+
+int main(void)
+{
+	int a[N] = {1,3,4,8,5};
+	ElemSN * head = NULL ,* pmax,*p;
+	head=creatlink(a);
+	pmax = head;                                     //假设第一个为最大值，然后比较遇大则换
+	for(p=head->next;p;p=p->next)
+	if (pmax->data < p->data)
+	pmax = p;
+	printf("%d", pmax->data);
+	return 0;
+}
+
+15：单向链表的遍历，链表倒叙输出
+
+
+void endprintlink(ElemSN * h)
+{
+	ElemSN * pend = NULL, * p;                       //定义一个尾指针岗哨
+
+	while (pend - h)
+	{
+		for (p = h; p->next - pend; p = p->next);
+		printf("%d", p->data);
+		pend = p;
+	}
+
+
+}
+
+int main(void)
+{
+	int a[N] = {1,3,4,8,5};
+	ElemSN * head = NULL ,*p;
+	head=creatlink(a);
+	endprintlink(head);
+	return 0;
+}
+
+
+16：查找结点
+
+ElemSN * Findkeynode(ElemSN*, int key)
+{
+	ElemSN * p;
+	for (p = h; p&&p->data - key; p = p->next);
+	return 0;
+
+}
+
+17：单结点的查找和删除（两指针联动）
+
+
+ElemSN * DelsingleNode(ElemSN * h, int key)
+{
+	ElemSN * p, *q=NULL;
+	for (p = h; p&&p->data - key; q = p, p = p->next);            //key的查找，空循环
+	if (!p)
+		printf("not found !\n");
+	else
+	{
+		if (p - h)                              //判断是否为头结点
+			q->next = p->next;
+		else
+			h = h->next;
+		free(p);
+		p = NULL;
+	}
+	return h;
+}
+
+
+int main(void)
+{
+	int a[N] = {1,3,4,8,5};
+	int key;
+	ElemSN * head = NULL ,*p;
+	head=creatlink(a);
+	printf("please input key: ");
+	scanf("%d", &key);
+	head=DelsingleNode(head, key);
+	printlink(head);
+	return 0;
+}
+
+
+18：删除结点中值重复的结点（链表结点的删除）
+
+
+void DelsameNode(ElemSN * h)
+{
+	ElemSN * p, *q, *pkey;
+	pkey = h;
+	while (pkey)            //外层循环控制所有有pkey重复
+	{
+		q = pkey;
+		p = pkey->next;         
+		while (p)              //内层循环控制有无重复值
+		{
+		{
+			if(p->data-pkey->data)
+			{  q = p;
+			   p = p->next;
+			}
+			else
+			{
+				q->next = p->next;
+				free(p);
+				p = q->next;
+			}
+		}
+		pkey = pkey->next;
+	}
+}
+
+
+
+int main(void)
+{
+	int a[N] = {1,3,4,3,5};
+	int key;
+	ElemSN * head = NULL ,*p;
+	head=creatlink(a);
+	DelsameNode(head);
+	printlink(head);
+	return 0;
+}
+
+
+19：将所有奇数结点放在偶数结点之前    （头插法）都需要一个结点指向头或尾
+
+ElemSN * Prelink(ElemSN * h)
+{
+	ElemSN * p, *q, *h1;
+	h1 = q = h;
+	p = h->next;
+	while (p)                                     //不用判断是否为头结点还是中间尾，永远是以一个链表头插
+	{
+		if (p->data % 2)
+		{
+			q->next = p->next;
+			p->next = h1;
+			h1 = p;
+			p = q->next;
+		}
+		else
+		{
+			q = p;
+			p = p->next;
+		}
+	}
+	return h1;
+}
+
+
+
+int main(void)
+{
+	int a[N] = {1,3,4,3,4,5};
+	int key;
+	ElemSN * head = NULL ,*p;
+	head=creatlink(a);
+	head=Prelink(head);
+	printlink(head);
+	return 0;
+}
+
+
+20：把链表的值按升序排序    (尾插法)
+
+
+ElemSN * selectsort(ElemSN * h)
+{
+	ElemSN * h1, *p, *q, *pmin, *qmin=NULL,*t=NULL;
+	h1 = NULL;
+	while (h)                                                    //控制外层循环，使所有的结点都拍完
+	{
+		for(pmin=q=h,p=h->next;p;q=p,p=p->next)               //找出此链表的最小值
+			if (p->data < pmin->data)  
+			{
+				pmin = p;
+				qmin = q;
+			}
+		if(pmin - h)                                    //判断最小值结点是否为首结点
+		
+			qmin->next = pmin->next;
+		else
+			h = h->next;
+		pmin->next = NULL;
+		if (!h1)                                        //判断新建得此结点是否为首结点
+			h1 = t = pmin;
+		else
+			t=t->next = pmin;
+	}
+		return h1;
+	
+}
+
+
+
+int main(void)
+{
+	int a[N] = {9,7,4,3,4,5};
+	int key;
+	ElemSN * head = NULL ,*p;
+	head=creatlink(a);
+	head=selectsort(head);
+
+	printlink(head);
+	return 0;
+}
+
+
+
+21:带表头结点单向链表的创建，输出，查找，删除
+
+ElemSN * creaklink(int a[], int n)
+{
+	ElemSN * p, *h;
+	h=p=(ElemSN *)malloc(sizeof(ElemSN));
+	h->next= NULL;                                 //头结点只能让其指针域附NULL，数据域为随机值
+	for (int i = 0; i < n; i++)
+	{
+		p = p->next = (ElemSN * )malloc(sizeof(ElemSN));
+		p->next = NULL;
+		p->data = a[i];
+	}
+	return h;
+}
+
+void printlink(ElemSN *h)
+{
+	ElemSN * p;
+	for (p = h; p->next; p = p->next)
+		printf("%d", p->next->data);
+}
+
+void delkeynode(ElemSN *h, int key)
+{
+	ElemSN *p, *pdel;
+	for (p = h; p->next&&p->next->data - key; p = p->next);           //查找和删除（无重复值）
+		if (!p->next)
+			printf("not found!");
+		else
+		{
+			pdel = p->next;
+			p->next = pdel->next;
+			free(pdel);
+		}
+}
+
+
+
+
+int main(void)
+{
+	int a[N] = {9,7,4,3,4,5};
+	int key;
+	ElemSN * head = NULL ,*p;
+	head = creaklink(a, N);
+	printf("please input key:");
+	scanf("%d", &key);
+	delkeynode( head, key);
+	printlink(head);
+	return 0;
+}
+
+
+
+22：将两个链表合并成一个升序表
+
+ElemSN * combine(ElemSN * h1, ElemSN * h2)
+{
+	ElemSN * h, *p=NULL, *t=NULL;
+	h = NULL;
+	while (h1&&h2)
+	{
+		if (h1->data < h2->data)
+		{
+			p = h1;
+			h1 = h1->next;
+		}
+		else
+		{
+			p = h2;
+			h2 = h2->next;
+		}
+		p->next = NULL;
+		if (!h)
+			h = t = p;
+		else
+			t = t->next = p;
+	}
+	if (h1)
+		p = h1;
+	else
+		p = h2;
+		t->next = p;
+		return h;
+}
+
+
+
+23:单向循环链表的创建，输出和删除
+
+#include <stdio.h>
+#include <stdlib.h>
+# define  N   6
+typedef struct node        //结点结构，类型重命名
+{
+	int data;
+	struct node * next;
+}ElemSN;
+
+ElemSN * creatlink(int a[], int n)
+{
+	ElemSN * h, *p, *t=NULL;
+	h = NULL;
+	for (int i = 0; i < n; i++)
+	{
+		p=(ElemSN *)malloc(sizeof(ElemSN));
+		p->data = a[i];
+		if (!h)
+		{
+			p->next = p;                    //创建的循环链表的头结点指头
+			h = t = p;
+		}
+		else
+		{
+			p->next = h;
+			t =t->next = p;
+		}
+	
+	}
+	return h;
+}
+
+void * printlink(ElemSN *h)
+{
+	ElemSN * p=NULL;
+	p = h;
+	do{
+		printf("%d", p->data);
+		p = p->next;
+	} while (p != h);                               //先执行一次循环
+}
+
+ElemSN * delkeynode(ElemSN *h, int key)
+{
+	ElemSN *p, *q;
+	p = h; q = NULL;
+	do {
+		if (p->data - key)
+		{
+			q = p;
+			p = p->next;                  //两指针联动，先执行一次循环
+		}
+		else
+			break;
+	} while (p - h);
+	if (p == h && q)
+		printf("Not found!");                          //通过判断q（后继结点)是不是在为不为空，来判断是走了一圈还是删除头结点
+	else
+	{
+		if (p == h)
+		{
+			for (q = h; q->next - h; q = q->next);         //删头结点时给头结点在尾指针上加前驱
+			h = h->next;
+		}
+		q->next = p->next;
+		free(p);
+	}
+
+	return h;
+}
+
+
+
+
+int main(void)
+{
+	int a[N]= {1,3,5,7,8,9};
+	int key;
+	ElemSN * head= NULL, *p, *h=NULL;
+	head=creatlink(a,N);
+	printf("please input key:");
+	scanf("%d", &key);
+	head=delkeynode(head, key);
+	printlink(head);
+	return 0;
+}
+
+
+24：判断两个链表是否有交结点
+
+
+ElemSN * inserttogether(ElemSN * h1, ElemSN *h2)
+{
+	ElemSN * p1, *p2;
+	int count = 0;
+	for (p1 = h1; p1; count++, p1 = p1->next);         //统计h1的结点总数
+	for (p2 = h2; p2; count--, p2 = p2->next);         //统计好h2结点的总数，求出多余数
+	if(count>0)                                        //判断h1还是h2长
+	{
+		p1 = h1;
+		p2 = h2;
+	}
+	else
+	{
+		p1 = h2;
+		p2 = h1;
+		count = -count;
+	}
+	for (; count; p1 = p1->next, count--);                //跑过多余项
+	for (; p1 - p2; p1 = p1->next, p2 = p2->next);          //判断指向是不是同结点
+	return p1;
+}
+ 
+
+
+25：约瑟夫环s找出并按顺序输出
+
+
+
+ElemSN * TosephusRing(ElemSN * t, int s)                //（在单向循环链表传尾指针比头指针更加高效）
+{
+	ElemSN * h1 = NULL, *t1=NULL,*h;
+	while (t - t->next)                             //最后一个结点跳出循环
+	{
+		for (int i = 0; i < s - 1; i++)
+			t = t->next;
+		    	h = t->next;
+			t->next = h->next;
+			h->next = NULL;
+			if (!h1)
+				h1 = t = h;
+			else
+				t1 = t1->next = h;
+	}
+	if (!h1)                                    //判断是否只有一个结点
+		h1 = t;
+	else
+		t1->next = t;
+		t->next = NULL;
+		return h1;
+
+}
+
+
+26：栈的应用（把十进制的数转化为二进制输出）
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#define  size  100
+
+int exchangebinary(int * s, int x)
+{
+	int top = -1;                                 //栈顶指针（其实不是指针是数）
+	while (x)
+	{
+		if (top - size)                     //判断栈是否够存
+		{
+			s[++top] = x % 2;
+			x = x / 2;
+		}
+		else
+			printf("the stack isn't enough!");
+	}
+	return top;
+}
+
+void printbinary(int * s, int top)
+{
+	while (top != -1)
+		printf("%d", s[top--]);
+}
+
+
+
+int main(void)
+{
+	int * s;
+	int x, top;
+	s = (int *)malloc(size * sizeof(int));           //创建栈
+	printf("please input a integer:");
+	scanf("%=d", &x);
+	top = exchangebinary(s, x);
+	printbinary(s, top);
+	free(s);
+}
+
+
+27：顺序栈的创建，入栈，出栈   （升级版）
+
+#include <stdio.h>
+#include <stdlib.h>
+#define  MAXSIZE 100              //栈的最大元素
+typedef struct stack
+{	
+	int s[MAXSIZE];               //定义一个顺序栈
+	int top;
+}SeqStack;
+
+SeqStack * CreatStack()             //创建顺序栈
+{
+	SeqStack * p;                       //声明指向栈底的指针
+	p = (SeqStack *)malloc(sizeof(SeqStack)); 
+	p->top = -1;
+	return p;
+}
+
+
+int PusStack(SeqStack * p, int x)           //入栈
+{
+	if (p->top == MAXSIZE - 1)                  //每次判断栈是否满，栈满不能入栈
+		printf("stack is full!");
+	else
+		p->top++;
+		p->s[p->top] = x;
+}
+
+
+
+int PopStack(SeqStack * p,int * q)
+{
+	if (p->top == -1)
+		printf("Stack is empty.");
+	else
+		*q = p->s[p->top];
+		p->top--;
+}
+
+ 
+
+
+
+int main()
+{
+	int x,q;
+	SeqStack * p;
+	p=CreatStack();
+	printf("Please input data");
+	scanf("%d", &x);
+	PusStack(p, x);
+	PopStack(p,&q);
+	printf("%d\n", q);
+
+}
+
+
+
+28：声明一个类，求正方体的面积             
+#include<iostream>
+using namespace std;
+class Rectangle
+{
+	private:
+		int length, width ;
+	public:
+		Rectangle()                        //定义构造函数，看参数的个数，或者类型而选择调用那个构造函数
+		{
+			length = 0;
+			width = 0;
+		}
+		Rectangle(int l, int w)
+		{
+			length = l;
+			width = w;
+		}
+		void Area()
+		{
+			cout << "area=" << length * width << endl;
+		}	
+
+};
+
+int main(void)
+{
+	Rectangle  Rec(3, 5);
+	Rec.Area();                    //通过共有访问私有
+}
+
+
+
+29：对象的创建与释放的过程
+
+#include<iostream>
+using namespace std;
+class Myclass
+{
+private:
+	int * p;
+public:
+	Myclass(int * t)
+	{
+		p = t;
+	}
+	void print()
+	{
+		cout << *p << endl;
+	}
+	~Myclass()                           //定义析构函数
+	{
+		delete p;
+	}
+
+};
+
+int main()
+{
+	int * pint = new int(3);
+	Myclass * pm = new Myclass(pint);
+	pm->print;
+	delete pm;
+	return 0;
+
+
+	//Myclass *pm = new Myclass(new int(3));
+	 pm->print;
+	 delete pm;                                          //系统自动调用析构函数，完成释放
+
+}
+
+30：继承的就近原则和赋值兼容原则
+
+#include "stdafx.h"
+#include<iostream>
+using namespace std;
+class Base                               //定义基类
+{
+public:
+	void fun()
+	{
+		cout << "Base.fun" << endl;                     //用函数来表示执行了那个累的函数
+	}
+	void hun()
+	{
+		cout << "Base.hun" << endl;
+	}
+};
+
+class Derived:public Base                                     //定义派生类，共有继承权限
+{
+public:
+	void fun()
+	{
+		cout << "Drived.fun" << endl;
+	}
+	void gun()
+	{
+		cout << "Driced,gun" << endl;
+	}
+};
+
+
+
+
+int main()
+{    //定义基类对象
+	Base objBase;
+	objBase.fun();
+	objBase.hun();
+	
+
+	Base * pb=&objBase;
+	pb->fun();
+	pb->hun();             //Base::hun()
+	
+
+
+
+	//定定义派生类对象
+	Derived objD;
+	objD.fun();                          //Drived.fun(),就近原则优先生效
+	objD.hun();
+	objD.gun();
+	objD.Base::fun();                 //Base::fun()
+
+
+
+	//用派生类指针操作对象
+	Derived  * pd = &objD;
+	pd->fun();
+	pd->hun();
+	pd->gun();
+	pd->Base::fun();
+
+
+	//基类指针指向派生类对象，只可调用派生类从基类继承的成员
+	Derived ohjD;
+	Base * pd = &objD;            //赋值兼容原则
+	pd->fun();     //Base::fun()
+	pd->hun();    //Base::hun()
+
+}
+
+31：综合继承知识点
+
+#include<iostream>
+using namespace std;
+class Base                              
+{
+private:
+	int x, y;
+
+public:
+	Base():x(0), y(0)
+	{
+		cout << "Base cons" << endl;
+	}
+	Base(int x,int y)
+	{
+		this->x = x;
+		this->y = y;
+		cout << "Base cons" << endl;
+	}
+	~Base()
+	{
+		cout << "Base Des" << endl;
+	}
+	void print()
+	{
+		cout << "x="<< x << endl;  
+		cout << "y="<< y << endl;
+	}
+};
+
+class Derived:public Base                                    
+{
+private:
+	int z;
+
+public:
+	Derived()
+	{
+		z = 0;
+		cout << "Derived cons" << endl;
+	}
+	Derived(int i) :Base(i - 1, i + 1) 
+	{
+		z = i;
+		cout << "Derived cons" << endl;
+	}
+	~Derived()
+	{
+		cout << "Derived Des"<<endl;
+	}
+	void print()
+	{
+		Base::print();
+		cout << "z="<<z << endl;
+	}
+};
+
+int main()
+{  
+	//用派生类指针操作对象
+	Derived  * pd = new Derived(3);
+	pd->print();
+	pd->Base::print();
+	delete pd;
+
+
+}
+
+
+
+
+32：受保护的权限数据，在派生类中初始化
+
+
+#include<iostream>
+using namespace std;
+class Base                              
+{
+protected:
+	int x, y;
+};
+
+class Derived :public Base
+{
+private:
+	int z;
+
+public:
+	Derived()
+	{
+		x = 0;
+		y = 0;
+		z = 0;
+		cout << "Derived cons" << endl;
+	}
+	Derived(int i)
+	{
+		x = i + 2;
+		y = i - 1;
+		z = i;
+		cout << "Derived cons" << endl;
+	}
+	~Derived()
+	{
+		cout << "Derived Des" << endl;
+	}
+	void print();
+
+};
+
+void Derived ::print()               //类内成员函数也可在类内声明，类外实现
+{
+	cout << "x=" << x << endl;
+	cout << "y=" << y << endl;
+	cout << "z=" << z << endl;
+}
+
+
+
+int main()
+{  
+	//用派生类指针操作对象
+	Derived  * pd = new Derived(3);
+	pd->print（）;
+	delete pd;
+}
+
+
+
+33：多态性的动态联编
+
+
+#include<iostream>
+using namespace std;
+
+class Base
+{
+public:
+	virtual void fun() = 0;                 //纯虚函数，提供接口
+};
+
+class D1 :public Base
+{
+public:
+	void fun()
+	{
+		cout << "D1 fun()" << endl;
+	}
+};
+
+class D2: public Base
+{
+public:
+	void fun()
+	{
+		cout << "D2 fun()" << endl;
+	}
+};
+
+class Myclass                       //实现二次封装
+{
+private:
+	Base * p;
+public:
+	Myclass(Base * t)            //使基类指针指向了派生类对象
+	{
+		p = t;
+	}
+	void dofun()
+	{
+		p->fun();
+	}
+};
+
+int main(void)
+{
+	D2 * d2 = new D2();
+	Myclass * pm = new Myclass(d2);
+	pm->dofun();
+}
+
+
+
+
+34：文件操作 ，文件的打开与关闭，写入与读取
+
+#include<stdio.h>
+#include<stdlib.h>
+int main(void)
+{   
+	FILE * f_pic,* f_file,* f_finish;                              //定义文件指针
+	char ch;
+	char pic_name[20], file_name[20], finish_name[20];
+	printf("please input need continuing piturer and Filname! \n");
+	printf("picture: ");
+	scanf("%s", pic_name);
+	printf("file: ");
+	scanf("%s", file_name);
+	printf("finish: ");
+	scanf("%s", finish_name);
+	if (!(f_pic = fopen("F:\pic_name", "rb")))                             //判断文件是否打开成功
+	{
+		printf("cannot open the picture %s", pic_name);
+		return;
+	}
+	if (!(f_file=fopen("F;\file_name", "rb")))
+	{
+		printf("cannot open the file %s", file_name);
+		return;
+	}
+	if (!(f_finish = fopen("F:\finish_name", "wb")))
+	{
+		printf("cannot open the finish %s", finish_name);
+		return;
+	}
+
+	while (!(feof(f_pic)))                                             //判断二进制文件是否结束
+	{
+		ch = fgetc(f_pic);                                      //读取字符
+		fputc(ch, f_finish);                         //写入字符
+	fclose(f_pic);                          //关闭文件
+
+	while (!(feof(f_file)))
+	{
+		ch = fgetc(f_file);
+		fputc(ch, f_finish);
+	}
+	fclose(f_file);
+	fclose(f_finish);
+}
+
+
+35：查找
+
+顺序查找
+
+int search(int a[], int n, int key)
+{                                            //时间复杂度O（n）
+	int i;
+	for (i = 0; i < n&&a[i] - key; i++);
+	if (i == n)
+		return -1;
+	else
+		return i;
+}
+
+
+二分查找
+
+int Halfsearch(int a[],int low, int high,int key)      //递归调用
+{
+	int mid;
+	if (low > high)
+		return -1;                              //-1代表找不到
+	else
+	{
+		mid = (low + high) / 2;
+		if (a[mid] == key)
+			return mid;
+		else
+			if (a[mid] > key)
+				return Halefsearch(a, low ,mid - 1, key);
+			else
+				return Halfsearch(a, mid + 1, high, key);
+
+	}
+}
+
+
+
+int Halfsearch(int a[], int low, int high, int key)
+{                                                          //非递归查找
+	int mid;
+	while (low <= high)
+	{
+		mid = (low + high) / 2;
+		if (a[mid] == key)
+			return mid;
+		if (a[mid] > key)
+			high = mid - 1;
+		else
+			low + mid + 1;
+	}
+	return -1;
+}
+
+
+36：  排序
+
+插入类：直接插入排序法
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+void InsertSort(int a[],int n)
+{
+	int i=1, j, x;
+	while (i - n)
+	{
+		x = a[i];
+		for (j = i - 1; j > -1 && a[j] > x; a[j + 1] = a[j], j--);
+		a[j + 1] = x;
+		i++;
+	}
+}
+
+
+int main()
+{
+	int i;
+	int a[6] = {3,2,5,8,4,7};
+	InsertSort(a, 6);
+	for (i = 0; i < 6; i++)
+	printf("%d", a[i]);
+	return 0; 
+}
+ 
+
+
+选择类：直接选择排序法
+
+#include<stdio.h>
+#include<stdlib.h>
+
+void InsertSort(int a[],int n)
+{
+	int i,j,t,kmin;
+	for(i=0;i<n-1;i++)              //最后一个不用比
+	{
+		kmin=i;
+		for(j=i+1;j<n;j++)
+		{
+			if(a[j]<a[kmin])
+				kmin=j;
+		}
+			if(i-kmin)
+			{
+				t=a[i];
+				a[i]=a[kmin];
+				a[kmin]=t;
+			}
+	}
+
+}
+
+
+int main()
+{
+	int i;
+	int a[6] = {3,2,5,8,4,7};
+	InsertSort(a, 6);
+	for (i = 0; i < 6; i++)
+	printf("%d", a[i]);
+	return 0; 
+}
+
+
+
+37:  交换类：冒泡排序法
+
+#include<stdio.h>
+#include<stdlib.h>
+#define N 6
+
+void Bubblesort(int a[], int n)
+{
+	int i, j,x;
+	for(i=0;i<n;i++)
+		for(j=0;j<n-i;j++)
+			if (a[j] > a[j+1])
+			{
+				x = a[j];
+				a[j] = a[j + 1];
+				a[j + 1] = x;
+			}
+}
+int main()
+{
+	int i;
+	int a[N] = { 3,2,5,8,4,7 };
+	Bubblesort(a, N);
+	for (i = 0; i < 6; i++)
+		printf("%d", a[i]);
+	return 0;
+}
+
+
+38:栈
+
+用栈来判断括号是否匹配
+
+
+#include<stdio.h>
+#include<stdlib.h>
+int ParenthesisMatching(char s[])
+{
+	int i, top, tag;
+	i = 0, top = -1;
+	while (s[i])
+	{
+		if (s[i] == '(')
+			top++;
+		else
+			if (s[i] == ')')
+			{
+				if (top == -1)
+					break;
+				else
+					top--;
+			}
+		i++;
+	}
+	tag = (!s[i] && (top == -1));
+	return tag;
+}
+
+
+int main(void)
+{
+	char s[100];
+	int tag;
+	printf("Please input Parenrthesis expression:");
+	gets(s);
+	tag = ParenthesisMatching(s);
+	if (tag)
+		printf("yes!");
+	else
+		printf("no!");
+}
+
+
+
+
+39： 递归
+
+1：把整数化为其二进制并且输出？
+
+void Binary(int x)
+{
+	if (x)
+	{
+		Binary(x / 2);
+		printf("%d",x % 2);
+	}
+}
+
+
+int main()
+{
+	int x;
+	printf("Please input the data:");
+	scanf("%d", &x);
+	Binary(x);
+}
+
+
+
+2：求整数的阶乘？
+
+int Factorial(int n)
+{
+	if (n-1)
+		return  Factorial(n - 1)*n;
+	return 1;
+
+}
+
+
+int main()
+{
+	int x, t;
+	printf("Please input the data:");
+	scanf("%d", &x);
+	t = Factorial(x);
+	printf("%d", t);
+}
+
+
+
+
+40： 循环队列
+
+实现约瑟夫环问题
+
+
+#include<stdio.h>
+#include<stdlib.h>
+void JosephusRing(int * Q, int n, int s)
+{
+	int front = 0, rear = n, i;
+	while (front - rear)
+	{
+		for (i = 0; i < s - 1; i++)
+		{
+			front = (front + 1) % n;
+			rear = (rear + 1) % n;
+			Q[rear] = Q[front];
+		}
+		front = (front+1) % n;
+		printf("%5d", Q[front]);
+	}
+}
+
+int main(void)
+{
+	int * Q;
+	int n, s;
+	printf("Please input n and s:");
+	scanf("%d%d",&n, &s);
+	Q = (int *)malloc((n + 1) * sizeof(int));
+	for (int i = 1; i < n + 1; i++)
+		Q[i] = i;
+	JosephusRing(Q, n, s);
+}
+
+
+
+41:  创建二叉查找树
+
+#include<stdio.h>
+#include<stdlib.h>
+#define N 10
+typedef struct node
+{
+	int data;
+	struct node * left;
+	struct node * right;
+}BTNode;
+
+
+BTNode * CreatLink(int a[], int n)                 //创建二叉查找树
+{
+	BTNode * root, *c, *q, *p;
+	root = (BTNode *)malloc(sizeof(BTNode));    //创建根结点
+	root->data = a[0];
+	root->left = root->right = NULL;
+	for (int i = 1; i < n; i++)
+	{
+		p = (BTNode *)malloc(sizeof(BTNode));
+		p->data = a[i];
+		p->left = p->right = NULL;              //创建其余结点
+		c = root;
+		while (c)                                //从根开始比较大小找到叶子节点，并且有指针q
+		{
+			q = c;
+			if (c->data > p->data)
+				c = c->left;
+			else
+				c = c->right;
+		}
+			if (q->data > p->data)         //比较大小挂结点
+				q->left = p;
+			else
+				q->right = p;
+		}
+	}
+	return root;
+}
+
+int main()
+{
+	int a[N] = { 1,2,3,4,5,6,7,8,9,0 };
+	BTNode *root;
+	root=CreatLink(a, N);
+	if (root)
+		printf("CreatLink successful!");
+	else
+		printf("CreatLink Failure !");
+	return 0;
+}
+
+
+
+
+42： 二叉查找树的前，中，后序递归遍历及其调用
+
+
+
+void FOrder(BTNode * root)                 //前序遍历
+{
+	if (root)
+	{
+		printf("%5d", root->data);
+		FOrder(root->left);
+		FOrder(root->right);
+	}
+}
+
+
+void MidOrder(BTNode * root)           //中序遍历
+{
+	if (root)
+	{
+		MidOrder(root->left);
+		printf("%5d", root->data);
+		MidOrder(root->right);
+	}
+}
+
+void LOrder(BTNode * root)               //后序遍历
+{
+	if (root)
+	{
+		LOrder(root->left);
+		LOrder(root->right);
+		printf("%5d", root->data);
+	}
+}
+
+
+
+int main()
+{
+	int a[N] = { 1,2,3,4,5,6,7,8,9,0 };
+	BTNode *root;
+	root=CreatLink(a, N);
+	if (root)
+		printf("CreatLink successful!\n");
+	else
+		printf("CreatLink Failure !\n");
+
+	FOrder(root);
+	printf("\n");
+	MidOrder(root);
+	printf("\n");
+	LOrder(root);
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
