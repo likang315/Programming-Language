@@ -4,7 +4,7 @@
 
 [TOC]
 
-##### 01：Class Vector <E>：
+##### 01：Class Vector <E>
 
 ​	数组序列，Vector 线程安全，加了同步锁，效率低
 
