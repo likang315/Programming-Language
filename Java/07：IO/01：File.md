@@ -10,7 +10,7 @@
 - IO：对磁盘数据读写信号；
   - URL："/" ：根目录，"." ：当前目录，"/"：层级的分隔符，默认路径就是当前路径
 
-###### Java IO：
+###### Java IO
 
 - Java.io   包中 阻塞型 IO；
 - Java.nio 包中的非阻塞型IO，通常称为 New IO；
@@ -19,17 +19,17 @@
 
 ##### 02：java.io. File：既可以表示一个文件，也可以表示一个目录
 
-###### 作用：
+###### 作用
 
 1. 可以访问其文件的一些属性（如：文件名，大小），但是不能访问文件的内容；
 2. 创建，删除一个文件或目录；
 
-###### Constructors：
+###### Constructors
 
 - File (String pathname) ：通过将给定路径名字符串转换为抽象路径名来创建一个新 File 实例
 - File (URI uri)：通过将给定的 file: URI 转换为一个抽象路径名来创建一个新的 File 实例
 
-###### Method：
+###### Method
 
 - boolean exists()  ：测试此抽象路径名表示的文件或目录是否存在 
 - boolean createNewFile( ) ：不存在具有此抽象路径名指定名称的文件时，则创建一个新的空文件 
@@ -58,16 +58,14 @@ public interface FilenameFilter {
 File[] listFiles() 
 // 根据File对象的名称进行过滤
 File[] listFiles(FilenameFilter filter) 
-@Override
-public boolean accept(File dir, String name) {
-		return name.endsWith(".java");
-		// 通过返回值来控制指定目录下面的文件和文件夹的显示，只显示.java文件
-}
+
+// 筛选出 xml 文件
+File[] files =  director.listFiles((dir, name) -> name.endsWith(".xml"));
 ```
 
 ###### Java.io    
 
-##### 04：Class  RandomAccessFile：
+##### 04：Class  RandomAccessFile
 
 - 专门用来**读取文本数据**的，不需要流直接可以读写
 - RAF：是基于指针进行读写的，即 RAF总是在指针指向的位置读写字节，并且读写后指针会自动向后移动，**给每个该对象包含一个记录指针**，既可以读取数据，也可以写入文件数据
