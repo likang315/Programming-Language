@@ -8,13 +8,13 @@
 
 ​	数组序列，Vector 线程安全，加了同步锁，效率低
 
-###### 扩容机制：
+###### 扩容机制
 
-​	初始容量为10 ，就是根据 capacityIncrement（容量增长因子）确认扩容大小的，**若capacityIncrement = 0 则扩大一倍，否则在原来容量的基础上加上 capacityIncrement** ，当然这个容量的最大范围为 Integer.MAX_VALUE 即，2^32 - 1，所以 Vector 并不是可以无限扩充的
+​	初始容量为10 ，根据 capacityIncrement（容量增长因子）确认扩容大小的，**若capacityIncrement = 0 则扩大一倍，否则在原来容量的基础上加上 capacityIncrement** ，当然这个容量的最大范围为 Integer.MAX_VALUE 即，2^32 - 1，所以 Vector 并不是可以无限扩充的。
 
-###### 扩容过程：
+###### 扩容过程
 
-​	申请 newCapacity 新空间，然后将原空间内容拷贝过来，并释放原空间，vector 并不是在原空间之后的相邻地址增加新空间，vector 的 空间是线性连续分配的
+​	申请 newCapacity 新空间，然后将原空间内容拷贝过来，并释放原空间，vector 并不是在原空间之后的相邻地址增加新空间，vector 的 空间是线性连续分配的。
 
 ```java
 public abstract class AbstractList<E> extends AbstractCollection<E> implements List<E> {
