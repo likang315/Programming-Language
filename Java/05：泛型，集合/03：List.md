@@ -4,13 +4,13 @@
 
 [TOC]
 
-##### 01：Class Vector <E>
+##### 01：`Class Vector<E>`
 
 ​	数组序列，Vector 线程安全，加了同步锁，效率低
 
 ###### 扩容机制
 
-​	初始容量为10 ，根据 capacityIncrement（容量增长因子）确认扩容大小的，**若capacityIncrement = 0 则扩大一倍，否则在原来容量的基础上加上 capacityIncrement** ，当然这个容量的最大范围为 Integer.MAX_VALUE 即，2^32 - 1，所以 Vector 并不是可以无限扩充的。
+​	初始容量为10 ，根据 capacityIncrement（容量增长因子）确认扩容大小的，**若 capacityIncrement = 0 则扩大一倍，否则在原来容量的基础上加上 capacityIncrement** ，当然这个容量的最大范围为 Integer.MAX_VALUE 即，2^32 - 1，所以 Vector 并不是可以无限扩充的。
 
 ###### 扩容过程
 
@@ -41,7 +41,7 @@ public class Vector<E> extends AbstractList<E> implements List<E>, RandomAccess,
         // 当前容器大小
         int oldCapacity = elementData.length; 
         // 新容量
-        int newCapacity = oldCapacity + ((capacityIncrement > 0) ?capacityIncrement : oldCapacity);
+        int newCapacity = oldCapacity + ((capacityIncrement > 0) ? capacityIncrement : oldCapacity);
         if (newCapacity - minCapacity < 0)
             newCapacity = minCapacity;
         if (newCapacity - MAX_ARRAY_SIZE > 0)
@@ -65,7 +65,7 @@ public class Vector<E> extends AbstractList<E> implements List<E>, RandomAccess,
 }
 ```
 
-##### 02：Class ArrayList<E>：
+##### 02：`Class ArrayList<E>`
 
 ​	本质都是 Object[ ]  数组，线程不安全，效率高，通过索引查询
 
@@ -175,12 +175,12 @@ public class ArrayList<E> extends AbstractList<E> implements List<E>, RandomAcce
 - int size()    ：返回此列表中的元素数
 - boolean isEmpty()    ：如果此列表中没有元素，则返回 true 
 - void clear()    ：移除此列表中的所有元素。本质是所有元素赋值NUll，size=0
-- boolean contains(Object o) ----------------------  如果此列表中包含指定的元素，则返回 true 
-- Iterator<E> iterator()      ---------------------  返回按适当顺序在列表的元素上进行迭代的迭代器
+- boolean contains(Object o) ：如果此列表中包含指定的元素，则返回 true 
+- Iterator<E> iterator() ：返回按适当顺序在列表的元素上进行迭代的迭代器
 
-##### 03：Class LinkedList<E> 
+##### 03：`Class LinkedList<E> `
 
-​	链表序列，增加，删除时效率高 ，非线程安全的类
+​	双向链表，增加，删除时效率高 ，非线程安全的类
 
 ###### 实现原理
 
@@ -190,7 +190,8 @@ public class ArrayList<E> extends AbstractList<E> implements List<E>, RandomAcce
 ```java
 public abstract class AbstractSequentialList<E> extends AbstractList<E> {}
 
-public class LinkedList<E> extends AbstractSequentialList<E> implements List<E>, Deque<E>, Cloneable, java.io.Serializable {
+public class LinkedList<E> extends AbstractSequentialList<E> implements
+    List<E>, Deque<E>, Cloneable, java.io.Serializable {
     // Node 结点的个数
     transient int size = 0;
     // 指向头结点
@@ -210,15 +211,15 @@ public class LinkedList<E> extends AbstractSequentialList<E> implements List<E>,
         return true;
     }
     void linkLast(E e) {
-        final Node<E> l = last; //指向链表尾部
-        final Node<E> newNode = new Node<>(l, e, null); //以尾部为前驱节点创建一个新节点
-        last = newNode;//将链表尾部指向新节点
-        if (l == null)//如果链表为空，那么该节点既是头节点也是尾节点
+        final Node<E> l = last; // 指向链表尾部
+        final Node<E> newNode = new Node<>(l, e, null); // 以尾部为前驱节点创建一个新节点
+        last = newNode;// 将链表尾部指向新节点
+        if (l == null)// 如果链表为空，那么该节点既是头节点也是尾节点
             first = newNode;
-        else//链表不为空，那么将该结点作为原链表尾部的后继节点
+        else // 链表不为空，那么将该结点作为原链表尾部的后继节点
             l.next = newNode;
-        size++;//增加尺寸
-        modCount++; //Fast-Fail机制
+        size++;// 增加尺寸
+        modCount++; // Fast-Fail机制
     }
     // 通过索引得到Node
     public E get(int index) {
@@ -279,8 +280,6 @@ private static class Node<E> {
         this.prev = prev;
     }
 }
-
-}
 ```
 
 ###### 方法：
@@ -292,9 +291,9 @@ private static class Node<E> {
 - E get(int index)  
 - ListIterator<E> listIterator(int index)   -------- 返回此列表中的元素的列表迭代器（按适当顺序），从列表中指定位置开始 
 
-##### 04：java.util.concurrent Class CopyOnWriteArrayList：
+##### 04：java.util.concurrent Class CopyOnWriteArrayList
 
-​	  **写时复制**的容器，指向新的引用，读多写少的场景
+​	  **写时复制**的容器，线程安全的，指向新的引用，读多写少的场景
 
 ```java
 public class CopyOnWriteArrayList<E> implements List<E>, RandomAccess, Cloneable, java.io.Serializable {
@@ -325,12 +324,12 @@ public class CopyOnWriteArrayList<E> implements List<E>, RandomAccess, Cloneable
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
-        		// 赋给一个新的数组
+        	// 赋给一个新的数组
             Object[] elements = getArray();
             int len = elements.length;
             Object[] newElements = Arrays.copyOf(elements, len + 1);
             newElements[len] = e;
-            // 把新的数组的引用赋给 array
+            // 把新的数组的引用赋给 array，写时复制
             setArray(newElements);
             return true;
         } finally {
@@ -382,7 +381,7 @@ public class CopyOnWriteArrayList<E> implements List<E>, RandomAccess, Cloneable
   2. 如果写操作完成，但是引用还未指向新数组，那么也是读取原数组数据
   3. 如果写操作完成，并且引用已经指向了新的数组，那么直接从新数组中读取数据
 
-##### 05：ConcurrentSkipListMap：
+##### 05：ConcurrentSkipListMap
 
 ​	提供了一种线程安全的并发访问的排序映射表，内部是 SkipList（跳表）结构实现，在理论上能够O(log(n))时间内完成查找、插入、删除操作
 

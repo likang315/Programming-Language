@@ -4,9 +4,11 @@
 
 [TOC]
 
-​	Set 集合元素唯一、无序并且只能通过迭代器，再通过for each循环获取元素
+##### 00：概述
 
-##### 01：Class  HashSet<E> ：散列集
+​	Set 集合元素唯一、无序并且只能通过迭代器，或者 for each 循环获取元素。
+
+##### 01：`Class HashSet<E>`：散列集
 
 ​	元素唯一，因为Map.key 唯一，但不有序，线程不安全类
 
@@ -42,16 +44,16 @@ public class HashSet<E> extends AbstractSet<E> implements Set<E>, Cloneable, jav
 - HashSet () ：构造一个新的空 set，本质 HashMap 实例的默认初始容量是 16，加载因子是 0.75
 - HashSet (int initialCapacity)：构造一个新的空 set，其底层 HashMap 实例具有指定的初始容量和默认的加载因子（0.75），如果容量超过初始容量，则创建新的容量的集合，并且把原来的数据复制进去
 
-###### 方法：
+###### 方法
 
 - boolean add(E e) ：如果此 set 中尚未包含指定元素，则添加指定元素
 - boolean isEmpty() ：做判断条件，之前做判空处理
 - int size()   ：返回此 set 中的元素的数量，为空时，返回0
 - Iterator<E>  iterator() ：返回对此 set 中元素进行迭代的迭代器
 
-##### 02：Class  LinekdHashSet
+##### 02：Class LinekdHashSet
 
-​	继承 HashSet，源码更少、更简单，唯一的区别是LinkedHashSet 内部使用的是 LinkedHashMap，这样做的意义就是LinkedHashSet中的元素唯一，而且有序
+​	继承 HashSet，源码更少、更简单，唯一的区别是LinkedHashSet 内部使用的是 LinkedHashMap，这样做的意义就是LinkedHashSet中的**元素唯一，而且有序**。
 
 ###### 实现原理
 
@@ -76,9 +78,9 @@ public class LinkedHashSet<E> extends HashSet<E> implements Set<E>, Cloneable, j
 }
 ```
 
-##### 03：Class  TreeSet<E>：树集
+##### 03：`Class TreeSet<E>`：树集
 
-​	保证 Set 集合的**元素唯一, 而且有序（元素值大小有序）**，底层是 TreeMap，元素被排序后放入该容器元素的类，必须实现 Comparator<T>  ，因为在元素进行排序时需要按照此原则本质是一个  TreeMap
+​	保证 Set 集合的**元素唯一，而且有序（元素值大小有序）**，底层是 TreeMap，元素被排序后放入该容器元素的类，必须实现 `Comparator<T>` ，因为在元素进行排序时需要按照此原则本质是一个  TreeMap
 
 ```java
 public class TreeSet<E> extends AbstractSet<E> implements NavigableSet<E>, Cloneable, java.io.Serializable {

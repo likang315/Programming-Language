@@ -6,12 +6,12 @@
 
 ##### 01：概述
 
-- 尽管 java.net包提供了通过HTTP访问资源的基本功能，但它并未提供许多应用程序所需的完全灵活性或功能。HttpClient力求通过**提供一个高效的、最新的、功能丰富的且实现最新HTTP标准和建议的客户端的包**来填补这一空白。
-- HttpClient不是浏览器（模拟浏览器的客户端），它是一个客户端HTTP传输库。HttpClient的目的是传输和接收HTTP消息。HttpClient不会尝试处理内容、执行嵌入在HTML页面中的javascript、尝试猜测内容类型(如果没有显式设置)或重新格式化请求/重写位置uri，或其他与HTTP传输无关的功能。
+- 尽管 java.net 包提供了通过HTTP访问资源的基本功能，但它并未提供许多应用程序所需的完全灵活性或功能。HttpClient力求通过**提供一个高效的、最新的、功能丰富的且实现最新HTTP标准和建议的客户端的包**来填补这一空白。
+- HttpClient 模拟浏览器的客户端，它是一个客户端HTTP传输库。HttpClient的目的是**传输和接收 HTTP 消息**。HttpClient不会尝试处理内容、执行嵌入在HTML页面中的JS、尝试猜测内容类型(如果没有显式设置)或重新格式化请求/重写位置uri，或其他与HTTP传输无关的功能。
 
 ##### 02：执行请求
 
-- HttpClient最重要的功能是执行HTTP方法。 执行HTTP方法涉及一个或多个HTTP请求/ HTTP响应交换，通常由HttpClient内部处理。 **期望用户提供要执行的请求对象，并且HttpClient期望将请求发送到目标服务器返回相应的响应对象，或者如果执行不成功则抛出异常**。
+- HttpClient 最重要的功能是执行HTTP方法。 执行HTTP方法涉及一个或多个HTTP请求/ HTTP响应交换，通常由 HttpClient 内部处理。 **期望用户提供要执行的请求对象，并且 HttpClient 期望将请求发送到目标服务器返回相应的响应对象，或者如果执行不成功则抛出异常**。
 
 ###### 示例
 
@@ -28,7 +28,7 @@
 
 ##### 03：HTTP请求
 
-- HttpClient支持开箱即用的HTTP / 1.1规范中定义的所有HTTP方法：GET，HEAD，POST，PUT，DELETE，TRACE和OPTIONS。 每种方法类型都有一个特定的类：**HttpGet，HttpHead，HttpPost，HttpPut，HttpDelete，HttpTrace和HttpOptions**。
+- HttpClient 支持开箱即用的HTTP / 1.1 规范中定义的所有HTTP方法：GET，HEAD，POST，PUT，DELETE，TRACE和OPTIONS。 每种方法类型都有一个特定的类：**HttpGet，HttpHead，HttpPost，HttpPut，HttpDelete，HttpTrace和HttpOptions**。
 
 - HttpClient提供了**URIBuilder实用程序类**，以简化请求URI的创建和修改。
 
@@ -128,7 +128,7 @@
 
 ##### 06：响应处理
 
-- 处理响应的最简单和最方便的方法是**使用ResponseHandler接口，该接口包含handleResponse(HttpResponse response)方法**。 该方法使用完全户**不必担心连接管理**。 使用ResponseHandler时，无论请求执行成功还是导致异常，HttpClient都会**自动确保将连接释放回连接管理器**。
+- 处理响应的最简单和最方便的方法是**使用 ResponseHandler 接口，该接口包含 handleResponse(HttpResponse response)方法**。 该方法使用户完全**不必担心连接管理**。 使用 ResponseHandler 时，无论请求执行成功还是导致异常，HttpClient都会**自动确保将连接释放回连接管理器**。
 
 - ```java
   CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -218,7 +218,6 @@
               AtomicInteger count = (AtomicInteger) context.getAttribute("count");
               request.addHeader("Count", Integer.toString(count.getAndIncrement()));
           }
-  
       }).build();
   ```
 
@@ -237,7 +236,7 @@
 
 ###### 自动异常恢复
 
-- 默认情况下，HttpClient会尝试从I / O异常中自动恢复。 默认的自动恢复机制仅限于一些已知安全的异常情况。
+- 默认情况下，HttpClient会尝试从 IO 异常中自动恢复。 默认的自动恢复机制仅限于一些已知安全的异常情况。
   - HttpClient **不会尝试从任何逻辑或HTTP协议错误（从HttpException类派生的错误）中恢复。**
   - HttpClient将自动重试那些被认为是幂等的方法。
   - 当HTTP请求仍在传输到目标服务器时（即请求尚未完全传输到服务器），HttpClient将**自动重试那些因传输异常而失败的方法**。
@@ -291,9 +290,9 @@
 
 ##### 11：重定向处理程序
 
-- HttpClient**自动处理所有类型的重定向**，除了HTTP规范明确禁止的需要用户干预的重定向。 请参阅其他（状态代码303）重定向POST，并将PUT请求转换为HTTP规范要求的GET请求。
+- HttpClient**自动处理所有类型的重定向**，除了HTTP规范明确禁止的需要用户干预的重定向。 
 
-- HttpClient通常必须**在执行过程中重写请求消息**。 默认情况下，HTTP/1.0和HTTP/1.1通常使用相对请求URI。 可以**使用原始请求和上下文构建最终绝对HTTP位置**。实用程序 **URIUtils#resolution 可构建用于生成最终请求的绝对URI**。此方法包括重定向请求或原始请求中的最后一个片段标识符。
+- HttpClient通常必须**在执行过程中重写请求消息**。 默认情况下，HTTP/1.0和HTTP/1.1通常使用相对请求URI。 可以**使用原始请求和上下文构建最终绝对HTTP位置**。实用程序 **URIUtils#resolution 可构建用于生成最终请求的绝对URI**。
 
   ```java
   CloseableHttpClient httpclient = HttpClients.createDefault();

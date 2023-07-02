@@ -4,7 +4,7 @@
 
 [TOC]
 
-##### 01：Interface Map<K,V>：
+##### 01：Interface Map<K,V>
 
 - 一种映射关系，将**键映射到值的对象**，存储键和值这样的双列数据的集合
 - 映射不能包含重复的键，每个键最多只能映射到一个值，K - 映射键的类型，V - 映射值的类型
@@ -35,8 +35,6 @@ public interface Map<K,V> {
 
 - int size()：返回此映射中的键-值映射关系数
 
-  
-
 - Set<Map.Entry<K,V>>   entrySet() ：返回此映射中包含的映射关系的 Set 集合
 
 - Set keySet() ：返回此映射中只包含的键的 Set 集合
@@ -46,7 +44,7 @@ public interface Map<K,V> {
 - boolean containsKey(Object key) ：如果此映射包含指定键的映射关系，则返回 true 
 - boolean containsValue(Object value) ：如果此映射将一个或多个键映射到指定值，则返回 true
 
-##### 02：Class HashMap<K,V>：
+##### 02：Class HashMap<K,V>
 
 ​	基于哈希表的 Map 接口的实现类，非线程安全的类，并且不保证映射的顺序，但是查找高效，允许 null 值 和 null 键的存在
 
@@ -130,7 +128,8 @@ public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneabl
 
 ###### 3：影响 HashMap 的性能：Capacity 和 loadFactor
 
-​	当节点数大于 (threshold) 阈值就需要扩容，这个值的计算方式是 **capacity * load factor**
+- 当节点数大于 (threshold) 阈值就需要扩容，这个值的计算方式是 **capacity * load factor**
+
 
 ###### 4：扩容机制：当前容量X2，在扩大容量时须要再hash
 
@@ -169,7 +168,9 @@ static final int hash(Object key) {
 
 ###### 9：JDK1.7 扩容时，头插造成环形链表 (高并发时)
 
-​	并发时，当两个线程同时进行put的操作时，刚好要扩容，一个线程刚扩容就休眠，另一个线程执行扩容，再hash 完时，另一个线程继续，此时就导致环形链表;
+​	并发时，当两个线程同时进行put的操作时，刚好要扩容，一个线程刚扩容就休眠，另一个线程执行扩容，再hash 完时，另一个线程继续，此时就导致环形链表；
+
+<img src="/Users/likang/Code/Git/Programming-Language/Java/05：泛型，集合，Map/photos/HashMap循环链表.png" alt="HashMap循环链表" style="zoom:75%;" />
 
 ###### 10：put(K key, V value) （ JDK1.8 ）
 
@@ -304,12 +305,10 @@ final Node<K,V>[] resize() {
     else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY &&
              oldCap >= DEFAULT_INITIAL_CAPACITY)   
       newThr = oldThr << 1; 
-  }
-  // 旧表的容量为小于0,  旧表的阈值大于0
-  else if (oldThr > 0) 
+  } else if (oldThr > 0) {
     // 将新表的容量设置为旧表的阈值 
     newCap = oldThr;
-  else {
+  }	else {
     // 旧表的容量为0, 旧表的阈值为0, 则为空表，设置默认容量和阈值
     newCap = DEFAULT_INITIAL_CAPACITY; 
     newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);
@@ -395,11 +394,12 @@ final Node<K,V>[] resize() {
 - get（index）元素时可能为空，因为扩容时，把新 new的数组赋给table，而这时还没再hash计算挂链，这是一个线程来读，可能会导致读到元素为空，返回null；
 - put（key，value）时，可能会导致某个元素没有给挂在链表上，导致丢失，因为已经第一个线程已经new一个新的结点（桶），第二个线程来时判断旧表为空，new 了一个结点，挂在了旧表上，导致丢失；
 
-##### 03：LinkedHashMap<K，V>：
+##### 03：LinkedHashMap<K，V>
 
 ​	为了解决 HashMap 不保证映射顺序的（无序）问题，迭代顺序
 
 - LinkedHashMap 是在 HashMap 的基础上维护了一个双向链表保证有序的HashMap，每次 **put 进来 Entry映射关系，除了将其保存到哈希表中对应的位置上之外，还会将其插入到双向链表的尾部**，内部类额外增加的两个属性来维护的一个双向链表**：before、after **
+- <img src="/Users/likang/Code/Git/Programming-Language/Java/05：泛型，集合，Map/photos/LinkedHashMap.jpg" alt="LinkedHashMap" style="zoom:40%;" />
 
 ```java
 public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V> {
@@ -518,7 +518,7 @@ public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V> {
 }
 ```
 
-##### 04：Class Hashtable<K,V> ：
+##### 04：Class Hashtable<K,V>
 
 ​	HashMap 的升级版，用于解决HashMap的并发问题
 
@@ -528,23 +528,23 @@ public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneab
 
 1. 线程安全(synchronized)和非线程安全的
 
-   Hashtable 是线程安全，给每个方法加了同步锁，所以在单线程环境下它比HashMap要慢，效率低
+   Hashtable 是线程安全，给每个方法加了同步锁，所以在单线程环境下它比HashMap要慢，效率低；
 
 2. 不支持 null 值和 null 键
 
-   HashTable 不支持null值和null键 ，而HashMap是因为对null做了特殊处理，将 null 的hashCode值定为了0，从而将其存放在哈希表的第0个bucket中
+   HashTable 不支持null值和null键 ，而HashMap是因为对null做了特殊处理，将 null 的hashCode值定为了0，从而将其存放在哈希表的第0个bucket中；
 
-3. 遍历方式不同：
+3. 初始容量和扩容机制不同
 
-   HashMap的迭代器(Iterator)是fail-fast迭代器，而 Hashtable 是 enumerator迭代器
+   HashTable的初始容量是11，HashMap的初始容量是16。两者的加载因子默认都是0.75，**HashMap扩容时 ：当前容量X2 **，在扩容时须要重新计算hash **Hashtable扩容时：当前容量X2+1**；
 
-4. 初始容量和扩容机制不同
+4. 遍历方式不同
 
-   HashTable的初始容量是11，HashMap的初始容量是16.两者的填充因子默认都是0.75 **HashMap扩容时 ：当前容量X2 **，在扩容时须要重新计算hash **Hashtable扩容时：当前容量X2+1**
+   HashMap的迭代器(Iterator)是fail-fast迭代器，而 Hashtable 是 enumerator迭代器；
 
 ###### java.util.concurrent   
 
-##### 05：Class ConcurrentHashMap ：
+##### 05：Class ConcurrentHashMap
 
 ​	HashTable 使用 synchronized 来保证线程安全，但在线程竞争激烈的情况下 HashTable 的效率非常低下的，当一个线程访问HashTable的同步方法时，其他线程访问HashTable的同步方法时，可能会进入阻塞或轮询状态
 
@@ -570,7 +570,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>  implements Concurr
 - **默认是 16个Segments，所以理论上，这个时候，最多可以同时支持 16 个线程并发写，只要它们的操作分别分布在不同的 Segment 上**
 - 这个值可以在初始化的时候设置为其他值，但是一旦初始化以后，它是不可以扩容的
 
-###### 3：构造函数进行初始化的，那么初始化完成后：
+###### 3：构造函数进行初始化的
 
 - Segment 为 16个，不可以扩容
 - Segment[ i ] 的默认大数组大小为 2，负载因子是 0.75，得出初始阈值为 1.5，也就是以后插入第一个元素不会触发扩容，插入第二个会进行第一次扩容
@@ -582,15 +582,15 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>  implements Concurr
 
 - 利用CAS来实现非阻塞的无锁实现线程安全，并且用Synchronized锁来锁住Hash值相同的table[ i ]，这样才保证线程安全
 
-##### 06：Class WeakHashMap：
+##### 06：Class WeakHashMap
 
 ​	当某个“弱键” 不再正常使用时（弱引用），会被从 WeakHashMap 中被自动移除，被垃圾回收器所回收；
 
-##### 07：Interface SortedMap<K，V>：
+##### 07：Interface SortedMap<K，V>
 
 ​	map 的子接口，增加了排序的功能(comparator)，TreeMap 实现了它的子接口；
 
-##### 08：Class TreeMap<K，V>：
+##### 08：Class TreeMap<K，V>
 
 ​	TreeMap 基于 **红黑树（Red-Black tree）实现**，该映射根据**其键的自然顺序进行排序**，或者根据**创建映射时提供的 Comparator 进行排序**，具体取决于使用的构造方法；
 
