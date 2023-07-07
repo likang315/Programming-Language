@@ -24,7 +24,7 @@
 
 ##### 02：org.apache.http.config.ConnectionConfig
 
-- Http connection相关配置，一般不修改该配置；
+- Http connection 相关配置，一般不修改该配置；
 - 用于设置编码格式和消息的约束条件；
 
 ##### 0：org.apache.http.impl.conn.PoolingHttpClientConnectionManager
@@ -46,7 +46,7 @@
 
 ##### 04：org.apache.http.impl.client.CloseableHttpClient
 
-- HTTPClient 的实现类，用与发送HTTP请求；
+- HTTPClient 的实现类，用于发送HTTP请求；
 
 ###### 方法
 
