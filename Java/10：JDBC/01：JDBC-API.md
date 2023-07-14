@@ -6,8 +6,8 @@
 
 ##### 01：JDBC API
 
-- JDBC API：Sun 公司定义的一套接口**（Java SE： java.sql.* ）**，谁想使用我们的语言，实现我们的定义的接口即可，用这些接口来操作数据库；
-- 由**驱动类和数据库访问类**组成，由数据库厂商提供，可以到MySQL网站下载；
+- JDBC API：Sun 公司定义的一套接口**（Java SE： java.sql.* ）**，实现定义的接口，即可用这些接口来操作数据库；
+- 由**数据库驱动类和访问类**组成，由数据库厂商提供，可以到MySQL网站下载；
 - JBDC驱动程序：mysql-connector-java-5.1.20-bin.jar
   - 驱动类：JDBC 实现了 Java.SQL.Driver 接口
   - 数据库访问类：分别实现了数据库访问接口，主要包含有
@@ -28,18 +28,17 @@
    - ```java
      Class.forName("com.mysql.jdbc.Driver");
      Connection con = DriverManager.getConnection(
-       "jdbc:mysql://localhost:3306/xupt?user=root&password=mysql");
+         "jdbc:mysql://localhost:3306/xupt?user=root&password=mysql");
      Connection con = 
-       DriverManager.getConnection("jdbc:mysql://localhost:3306/xupt","root","mysql");
-     		Properties p = new Properties(); 
-     		p.setProperty("user","root");
-     		p.setProperty("password","mysql");
-     Connection con = 
-       DriverManager.getConnection("jdbc:mysql://localhost:3306/xupt",p);
+         DriverManager.getConnection("jdbc:mysql://localhost:3306/xupt","root","mysql");
+     Properties p = new Properties(); 
+     p.setProperty("user","root");
+     p.setProperty("password","mysql");
+     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/xupt",p);
      Statement stat = con.createStatement();
      ```
-
-3. 数据访问阶段，获取Statement
+   
+3. 数据访问阶段，获取 Statement
 
    - 建立一个语句对象，是用于发送sql语句给数据库；
 
@@ -48,12 +47,11 @@
 ```java
 public static void main(String[] args) throws Exception {
     Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/xupt",
-                                                 "root", "mysql");
-    //Statement  stat = con.createStatement();
+    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/xupt","root", "mysql");
+    // Statement stat = con.createStatement();
     String sql = "select * from stu where name like ?";
     PreparedStatement  ps = con.prepareStatement(sql);
-    ps.setString(1, "li%");
+    ps.setString(1, "%li%");
     ResultSet rs = ps.executeQuery();
     while (rs.next()) {
       // 通过列序号或者列名获取值
@@ -115,7 +113,6 @@ public static void main(String[] args) throws Exception {
 ```java
 String sql = "insert into person(id,name,sex,age) values(?,?,?,?)";
 PreparedStatement ps = con.prepareStatement(sql);
-	
 for(int i = 1; i < 10; i++) {
     ps.setInt(1, i);
     ps.setString(2, "name" + i);
@@ -152,12 +149,9 @@ int[] re = ps.executeBatch();
 - int getInt(int columnIndex) ：以int 的形式获取此 ResultSet 对象的当前行中**指定列序号的值** 
 - int getInt(String columnLabel) 以String的形式获取此 ResultSet 对象的当前行**中指定列名的值**
 
-###### 注意： 
+###### 注意 
 
 - ResultSet 和表没有关系，只和 select 语句有关系
-
-- SQL语句中拼接："+ +" 
-
 - **带有 ' 符号的字符串可能会改变SQL语句的结构**，所以使用PreparedStatement接口，先发送预编译的格式，再发参数；
 
 ##### 	 08：Interface DatabaseMetaData
