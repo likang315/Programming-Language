@@ -26,6 +26,7 @@
 - **改进的 CompletableFuture API** ： CompletableFuture 类的异步机制可以在 ProcessHandle.onExit 方法退出时执行操作。
 - **轻量级的 JSON API**：内置了一个轻量级的JSON API
 - **响应式流（Reactive Streams) API**: Java 9中引入了新的响应式流 API 来支持 Java 9 中的响应式编程。
+- **G1 默认垃圾回收器**
 
 ##### 03：模块系统
 
@@ -152,3 +153,7 @@
       // 异常处理
   }
   ```
+
+##### 11：G1 成为默认垃圾回收器
+
+- 在 Java 8 的时候，默认垃圾回收器是 Parallel Scavenge（新生代）+ Parallel Old（老年代）。到了 Java 9, CMS 垃圾回收器被废弃了，**G1（Garbage-First Garbage Collector）** 成为了默认垃圾回收器。
