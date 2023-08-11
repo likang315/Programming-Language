@@ -8,7 +8,7 @@
 
 - Java 9 发布于 2017 年 9 月 22 日，带来了很多新特性，其中最主要的变化是已经实现的模块化系统。
 
-##### 02：新特性
+###### 新特性
 
 - **模块系统**：模块是一个包的容器，Java 9 最大的变化之一是引入了模块系统（Jigsaw 项目）。
 - **REPL (JShell)**：交互式编程环境。
@@ -28,7 +28,7 @@
 - **响应式流（Reactive Streams) API**: Java 9中引入了新的响应式流 API 来支持 Java 9 中的响应式编程。
 - **G1 默认垃圾回收器**
 
-##### 03：模块系统
+##### 0：模块系统
 
 - 模块：一个被命名的，代码和数据的自描述集合。一种新型的程序设计组件；
 
@@ -46,7 +46,7 @@
   }
   ```
 
-##### 04：JShell
+##### 03：JShell
 
 - Shell 是 Java 9 新增的**一个交互式的编程环境工具**。它允许你无需使用类或者方法包装来执行 Java 语句。它与 **Python 的解释器类似**，可以直接 输入表达式并查看其执行结果。
 
@@ -58,14 +58,14 @@
   /exit
   ```
 
-##### 05：Javadoc
+##### 04：Javadoc
 
 - ```shell
   # 使用javadoc 生成文档
   javadoc -d C:/JAVA Tester.java
   ```
 
-##### 06： 新的静态工厂方法，创建集合的不可变实例
+##### 05： 新的静态工厂方法，创建集合的不可变实例
 
 - Java 9 中，以下方法被添加到 List，Set 和 Map 接口以及它们的重载对象。
 
@@ -108,7 +108,7 @@
     }
     ```
 
-##### 07：私有接口方法
+##### 06：私有接口方法
 
 - Java 9 不仅像 Java 8 一样支持接口默认方法，同时还支持私有方法。
 
@@ -121,7 +121,7 @@
   - **私有方法：**Java 9
   - **私有静态方法**：提供辅助功能或实现细节，供类内部的其他方法使用；
 
-##### 08：新的进程 API
+##### 07：新的进程 API
 
 - Java 9 向 Process API 添加了一个名为 ProcessHandle 的接口来增强 java.lang.Process 类。
 
@@ -132,12 +132,12 @@
   ProcessHandle.Info info = p.info();
   ```
 
-##### 09：新的 Stream API
+##### 08：新的 Stream API
 
 - Java 9 为 Stream 新增了几个方法：dropWhile、takeWhile、ofNullable，为 iterate 方法新增了一个重载方法。
 - 【详情见：Java 8 Stream】
 
-##### 10：改进的 try - with - resource
+##### 09：改进的 try - with - resource
 
 - 在 `try` 语句中使用资源（`resource`）时，可以**在 `try` 关键字后面直接声明资源，而无需在 `try` 代码块前面显式声明**。这项特性称为“改进后的 try-with-resources”。
 
@@ -154,6 +154,6 @@
   }
   ```
 
-##### 11：G1 成为默认垃圾回收器
+##### 10：G1 成为默认垃圾回收器
 
 - 在 Java 8 的时候，默认垃圾回收器是 Parallel Scavenge（新生代）+ Parallel Old（老年代）。到了 Java 9, CMS 垃圾回收器被废弃了，**G1（Garbage-First Garbage Collector）** 成为了默认垃圾回收器。
