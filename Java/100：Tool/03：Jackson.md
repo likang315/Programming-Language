@@ -78,16 +78,14 @@
 - 对于 Collection 类型 ，可以调用 constructCollectionType 方法来序列化，也可以构造 TypeReference 来序列化。
 
   ```java
-  CollectionType javaType = mapper.getTypeFactory()
-    .constructCollectionType(List.class, Person.class);
-  // 第二参数是 map 的 key 的类型，第三参数是 map 的 value 的类型
-   MapType javaType =
-      mapper.getTypeFactory().constructMapType(
-     	Map.class, String.class, Person.class);
+  CollectionType javaType = mapper.getTypeFactory().constructCollectionType(
+      List.class, Person.class);
+   // 第二参数是 map 的 key 的类型，第三参数是 map 的 value 的类型
+   MapType javaType = mapper.getTypeFactory().constructMapType(
+       Map.class, String.class, Person.class);
   
    List<Person> personList = mapper.readValue(jsonInString, javaType);
-   List<Person> personList = mapper.readValue(jsonInString, new
-      TypeReference<List<Person>>(){});
+   List<Person> personList = mapper.readValue(jsonInString, new TypeReference<List<Person>>(){});
   ```
 
 ###### 属性可视化【废弃】
@@ -153,11 +151,11 @@
 
 ##### 07：树模型
 
-- **Jackson 也提供了树模型(tree model)来生成和解析 json**。
+- **Jackson 也提供了树模型(tree model) 来生成和解析 json**。
 
 - 若想修改或访问 json 部分属性，树模型是不错的选择。树模型由 JsonNode 节点组成。程序中常常使用 ObjectNode，ObjectNode 继承于 JsonNode；
 
-- JsonNode是不可变的，一般用于读取。ObjectNode可变，一般用于创建Json对象图;
+- JsonNode 是不可变的，一般用于读取。ObjectNode 可变，一般用于创建Json对象图;
 
 - ```java
   ObjectMapper mapper = new ObjectMapper();

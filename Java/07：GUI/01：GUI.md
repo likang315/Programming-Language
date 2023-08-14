@@ -1,10 +1,16 @@
-### GUI：图形化界面
+### GUI （ Graphical User Interface-图形化界面）
 
-- Java.awt ：抽象窗口工具包，提供创建窗口和绘制图形图像的所有类
-- Javax.swing：在awt包的基础之上进行了优化，提供了可跨平台并且比较复杂的组件（常用）
-- java.awt.event：事件处理，后台功能的实现
+------
 
-### 1：三种布局
+[TOC]
+
+##### 01：概述
+
+- Java.awt ：抽象窗口工具包，提供创建窗口和绘制图形图像的所有类；
+- Javax.swing：在awt包的基础之上进行了优化，提供了可跨平台并且比较复杂的组件（常用）；
+- java.awt.event：事件处理，后台功能的实现；
+
+##### 02：三种布局
 
 1. 流式布局：就像在 word 中打字，组件从左向右排列，一行排满后自动换下一行。组件默认居中对齐，可以设置为左/右对齐，流布局会维持组件的原始大小。**流布局是 JPanel（面板）的默认布局，FlowLayout类提供该布局**
 2. 方位布局：把整个窗口分成了5个部分，东西南北中。其中南北是整行，而中/西/东都不是整列，组件放入时需要指定放在哪个区域，默认放在中部。每个部分只能存放一个组件，如果存放多个就会覆盖前面的，**JFrame的默认布局就是边框布局，BorderLayout 提供该类的实例**
@@ -32,9 +38,7 @@ public static void solution( ) {
 }
 ```
 
-
-
-### 2：Javax.swing ：         
+##### 03：Javax.swing
 
 - JFrame ：带有标题和边框的顶层窗口     	
 - JPanel ：一般轻量级容器，面板
@@ -44,21 +48,19 @@ public static void solution( ) {
 - JTextField ： 文本框
 - JTextArea ：  文本区域
 
-### 3：JPanel ：面板，容纳组件的容器
+##### 04：JPanel（面板，容纳组件的容器）
 
 - void setBounds (int x, int y, int width, int height) ：设置方位和大小
 - void setBackground(Color bg)：设置背景色
 - void setLayout(LayoutManager mgr) :设置布局凡方式
 - Component add(Component comp)：添加组件
 
-### 4：JButton：标签按钮，component的子类  
+##### 05：JButton（标签按钮，component的子类  ）
 
 - Button(String label) ：构造一个带指定名称的按钮
 - void addActionListener(ActionListener l)   ：添加动作侦听器，点击是触发
 
-
-
-### 5：component：组件类，是所有 awt 组件的顶级父类，主要添加事件监听器方法         
+##### 06：component：（组件类，是所有 awt 组件的顶级父类，主要添加事件监听器方法）
 
 -  void addFocusListener(FocusListener l)：添加指定的焦点侦听器，以便当此组件获得输入焦点时能够接收发自此组件的焦点事件 	
 - void addKeyListener(KeyListener l)   ：添加指定的按键侦听器，以接收发自此组件的按键事件
@@ -76,9 +78,7 @@ public interface FocusListener extends EventListener {
 }
 ```
 
-
-
-### 6：Java.awt   Abstract  Class  Graphics
+##### 07：Abstract  Class  Graphics
 
 ​	提供在组件上打印文字，显示图像的方法，图形上下文就是窗口空间    	
 
@@ -110,9 +110,7 @@ public class MyJpanel2 extends JPanel {
 }
 ```
 
-
-
-### 7：其他工具类
+##### 08：其他工具类
 
 1. Color：颜色类    
 2. Font：字体类              	

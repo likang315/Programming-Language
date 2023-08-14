@@ -84,7 +84,7 @@
   - 用来**设置某一个包或者具体的某一个类的日志打印级别、以及指定 `<appender>`。**
   - name ：用来**指定受此logger约束的某一个包或者具体的某一个类**。
   - level：用来设置打印级别，大小写无关，还有一个特俗值INHERITED或者同义词NULL，代表强制执行上级的级别。**如果未设置此属性，那么当前logger将会继承上级（root）的级别。**
-  - **addtivity**：是否向上级传递 该logger 打印的信息。默认是true。
+  - **addtivity**：是否向上级传递该 logger 打印的信息。默认是true。
 
 - root
 
@@ -209,9 +209,11 @@
     </appender>
     <!-- 只打印 INFO 级别以上的信息-->
     <appender name="info_appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<!--高于此级别的日志才打印-->
+		<!--高于此级别的日志才打印,因此error 高于info 所以需要 match-->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
         </filter>
         <file>${log.dir}/info.log</file>
         <encoder>
