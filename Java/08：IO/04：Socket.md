@@ -17,7 +17,7 @@
 - `inet_sock`：特指用了**网络传输**功能的`sock`，在`sock`的基础上还加入了`TTL`，**端口，IP地址**这些跟网络传输相关的字段信息。说到这里大家就懵了，难道还有不是用网络传输的？有，比如`Unix domain socket`，用于本机进程之间的通信，直接读写文件，不需要经过网络协议栈。
 - `inet_connection_sock`：是指**面向连接**的`sock`，在`inet_sock`的基础上加入面向连接的协议里相关字段，比如`accept队列`，数据包分片大小，握手失败重试次数等。虽然我们现在提到面向连接的协议就是指TCP，但设计上linux需要支持扩展**其他**面向连接的**新协议**。
 - `tcp_sock`： 就是**tcp协议**专用的`sock`结构了，在`inet_connection_sock`基础上还加入了tcp特有的**滑动窗口**、**拥塞避免**等功能。同样udp协议也会有一个专用的数据结构，叫`udp_sock`。
-- <img src="/Users/likang/Code/Git/Programming-Language/Java/07：IO/photots/socket.png" alt="socket" style="zoom:40%;" />
+- <img src="https://github.com/likang315/Programming-Language/blob/master/Java/08%EF%BC%9AIO/photots/socket.png?raw=true" alt="socket" style="zoom:40%;" />
 
 ##### 02：Socket
 
@@ -43,7 +43,7 @@
 - 当你的应用进程执行`recv()`方法尝试获取（阻塞场景下）接收缓冲区的数据时。
   - 如果有数据，那正好，取走就好了。
   - 但如果没数据，就会将自己的**进程**信息注册到这个sock用的**等待队列**里，然后进程**休眠**。如果这时候有数据从远端发过来了，数据进入到接收缓冲区时，内核就会取出sock的等待队列里的进程，**唤醒**其中一个进程来取数据。
-  - <img src="/Users/likang/Code/Git/Programming-Language/Java/07：IO/photots/receive_queue.png" alt="receive_queue" style="zoom:40%;" />
+  - <img src="https://github.com/likang315/Programming-Language/blob/master/Java/08%EF%BC%9AIO/photots/receive_queue.png?raw=true" alt="receive_queue" style="zoom:40%;" />
 
 ##### 03：Socket 总结
 
