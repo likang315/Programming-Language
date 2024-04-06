@@ -4,10 +4,8 @@
 
 ##### 01：java语言发展历程
 
-- 1995年 由Sun公司提出
-- 2010年 被Oracle公司收购
+- 1995年 由Sun公司提出，2010年 被Oracle公司收购
 - java之父：James Gosling
-- eclipse（日食）IBM---sun（太阳）
 
 ##### Java版本：
 
@@ -16,13 +14,17 @@
 - javaEE：企业版
   - javaSE是java的基础，主要用于桌面应用程序的开发，javaEE主要用于开发企业级分布式的网络程序，javaME主要用于嵌入式系统开发
 
-##### 03：Java 语言的特点：
+##### 03：Java 语言的特点
 
 - 面向对象
 - 单继承
-- 跨屏台：主要实现是依靠 JVM，不同平台对应有不同的 JVM
-- jdk:开发工具包 + jre（运行环境）
-- jre：api（Java系统类库） + jvm（java虚拟机）
+- 跨平台：它摆脱了硬件平台的束缚，实现了“一次编写，到处运行”的理想；
+- **JVM（Java Virtual Machine）**：相对安全的内存管理和访问机制;
+  - Classic VM：世界上第一款商用Java虚拟机；
+  - JDK 3 时，HotSpot VM成为默认虚拟机；(**武林盟主**)
+
+- **JDK（Java Development Kit）**：Java程序设计语言、Java虚拟机、Java类库这三部分统称为JDK;
+- **JRE（Java Runtime Environment）**：把 Java 类库 API 中的Java SE API子集和Java虚拟机；
 
 ##### 04：配置环境变量：
 
