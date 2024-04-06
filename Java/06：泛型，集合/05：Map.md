@@ -170,7 +170,7 @@ static final int hash(Object key) {
 
 ​	并发时，当两个线程同时进行put的操作时，刚好要扩容，一个线程刚扩容就休眠，另一个线程执行扩容，再hash 完时，另一个线程继续，此时就导致环形链表；
 
-<img src="https://github.com/likang315/Programming-Language/blob/master/Java/05%EF%BC%9A%E6%B3%9B%E5%9E%8B%EF%BC%8C%E9%9B%86%E5%90%88/photos/HashMap%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8.png?raw=true" alt="HashMap循环链表" style="zoom:75%;" />
+<img src="https://github.com/likang315/Programming-Language/blob/master/Java/06：泛型，集合/photos/HashMap循环链表.png?raw=true" alt="HashMap循环链表" style="zoom:75%;" />
 
 ###### 10：put(K key, V value) （ JDK1.8 ）
 
@@ -399,7 +399,7 @@ final Node<K,V>[] resize() {
 ​	为了解决 HashMap 不保证映射顺序的（无序）问题，迭代顺序
 
 - LinkedHashMap 是在 HashMap 的基础上维护了一个双向链表保证有序的HashMap，每次 **put 进来 Entry映射关系，除了将其保存到哈希表中对应的位置上之外，还会将其插入到双向链表的尾部**，内部类额外增加的两个属性来维护的一个双向链表**：before、after **
-- <img src="https://github.com/likang315/Programming-Language/blob/master/Java/05%EF%BC%9A%E6%B3%9B%E5%9E%8B%EF%BC%8C%E9%9B%86%E5%90%88/photos/LinkedHashMap.jpg?raw=true" alt="LinkedHashMap" style="zoom:40%;" />
+- <img src="https://github.com/likang315/Programming-Language/blob/master/Java/06：泛型，集合/photos/LinkedHashMap.jpg?raw=true" alt="LinkedHashMap" style="zoom:40%;" />
 
 ```java
 public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V> {
