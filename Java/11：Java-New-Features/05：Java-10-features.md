@@ -17,9 +17,6 @@
 - ```java
   var list = new ArrayList<String>(); // ArrayList<String>
   var stream = list.stream(); // Stream<String>
-  ------
-  著作权归@pdai所有
-  原文链接：https://pdai.tech/md/java/java8up/java10.html
   ```
 
 ##### 03：应用程序类数据共享

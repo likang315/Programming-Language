@@ -386,3 +386,4 @@ public class CopyOnWriteArrayList<E> implements List<E>, RandomAccess, Cloneable
 ​	提供了一种线程安全的并发访问的排序映射表，内部是 SkipList（跳表）结构实现，在理论上能够O(log(n))时间内完成查找、插入、删除操作
 
 - SkipList：插入、查找为O(logn)，但常数项比红黑树要大；底层结构为链表，可无锁实现；数据天然有序
+

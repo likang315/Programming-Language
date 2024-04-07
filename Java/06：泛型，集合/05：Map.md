@@ -52,7 +52,7 @@ public interface Map<K,V> {
 
 - JDK1.7：数组+链表
 - JDK1.8：数组+链表+红黑树，引入红黑树来提高查找效率   
-- **对 null健做了特殊处理**，放在table[0]处
+- **对 null 健做了特殊处理**，放在table[0]处
 
 ```java
 public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneable, Serializable {
@@ -164,7 +164,7 @@ static final int hash(Object key) {
 
 ###### 8：为什么要引入红黑树
 
-​	因为之前hashmap底层结构是数组加链表，但是当数据大到一定程度的时候，用链表存储也比较长，难以查询，红黑树的查找效率高，相当于二分；
+​	因为之前 hashmap 底层结构是数组加链表，但是当数据大到一定程度的时候，用链表存储也比较长，难以查询，红黑树的查找效率高，相当于二分；
 
 ###### 9：JDK1.7 扩容时，头插造成环形链表 (高并发时)
 
@@ -532,7 +532,7 @@ public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneab
 
 2. 不支持 null 值和 null 键
 
-   HashTable 不支持null值和null键 ，而HashMap是因为对null做了特殊处理，将 null 的hashCode值定为了0，从而将其存放在哈希表的第0个bucket中；
+   HashTable 不支持null值和null键 ，而HashMap是因为对null做了特殊处理，将 null 的 hash 值定为了0，从而将其存放在哈希表的第0个bucket中；
 
 3. 初始容量和扩容机制不同
 
@@ -540,7 +540,7 @@ public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneab
 
 4. 遍历方式不同
 
-   HashMap的迭代器(Iterator)是fail-fast迭代器，而 Hashtable 是 enumerator迭代器；
+   HashMap 的迭代器(Iterator)是 fail-fast 迭代器，而 Hashtable 是 enumerator 迭代器；
 
 ###### java.util.concurrent   
 
@@ -567,18 +567,18 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>  implements Concurr
 ​	一种可重入锁，在 ConcurrentHashMap 里扮演锁的角色，HashEntry 则用于存储键值的映射关系
 
 - Segment 的结构 和 HashMap 类似，是一种数组和链表结构， 一个 Segment 里包含一个 HashEntry 数组，每个HashEntry 是一个链表结构的元素，每个 Segment 守护着一个 HashEntry 数组里的元素，当对HashEntry数组的数据进行修改时，必须首先获得它对应的 Segment 锁
-- **默认是 16个Segments，所以理论上，这个时候，最多可以同时支持 16 个线程并发写，只要它们的操作分别分布在不同的 Segment 上**
+- **默认是 16 个Segments，所以理论上，这个时候，最多可以同时支持 16 个线程并发写，只要它们的操作分别分布在不同的 Segment 上**
 - 这个值可以在初始化的时候设置为其他值，但是一旦初始化以后，它是不可以扩容的
 
 ###### 3：构造函数进行初始化的
 
 - Segment 为 16个，不可以扩容
-- Segment[ i ] 的默认大数组大小为 2，负载因子是 0.75，得出初始阈值为 1.5，也就是以后插入第一个元素不会触发扩容，插入第二个会进行第一次扩容
+- Segment[ i ] 的默认数组大小为 2，负载因子是 0.75，得出初始阈值为 1.5，也就是以后插入第一个元素不会触发扩容，插入第二个会进行第一次扩容
 - segment 不能扩容，扩容的是 segment 内部的数组 HashEntry[] 进行扩容，扩容后，容量为原来的 2 倍
 
 ###### 4：JDK1.8 实现 ConcurrentHashMap
 
-​	数组+链表+红黑树数据结构来实现，并发控制使用**Synchronized和CAS**来操作，整个看起来就像是优化过且线程安全的HashMap，虽然在JDK1.8中还能看到 Segment 的数据结构，但是已经简化了属性，只是为了兼容旧版本
+​	数组+链表+红黑树数据结构来实现，并发控制使用**Synchronized 和 CAS**来操作，整个看起来就像是优化过且线程安全的HashMap，虽然在JDK1.8中还能看到 Segment 的数据结构，但是已经简化了属性，只是为了兼容旧版本
 
 - 利用CAS来实现非阻塞的无锁实现线程安全，并且用Synchronized锁来锁住Hash值相同的table[ i ]，这样才保证线程安全
 
