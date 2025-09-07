@@ -299,7 +299,7 @@ private static class Node<E> {
 public class CopyOnWriteArrayList<E> implements List<E>, RandomAccess, Cloneable, java.io.Serializable {
 	// 非公平的可重入锁
     final transient ReentrantLock lock = new ReentrantLock();
-    // 保证可见性，但是不保证一致性
+    // 保证可见性，但是不保证原子性
     private transient volatile Object[] array;
     public CopyOnWriteArrayList() {
         setArray(new Object[0]);

@@ -153,7 +153,7 @@ static final int hash(Object key) {
 ###### 6：HashMap 为什么初始容量为 16或者2的幂次方 ?
 
 1. 为了降低hash值的碰撞，在 HashMap 的索引， 公式: index = e.hash & (newCap - 1)
-   - 反观长度16或者其他2的幂次方, **newCap - 1 的值是所有最后二进制位全为1,**这种情况下，index 的结果等同于hash值的后几位的值，只要输入的 hashcode 本身分布均匀，hash算法的结果就是均匀的，HashMap的默认长度为16,是为了**降低 hash 碰撞的概率。**
+   - 反观长度16或者其他2的幂次方, **newCap - 1 的值是所有最后二进制位全为1**，这种情况下，index 的结果等同于hash值的后几位的值，只要输入的 hashcode 本身分布均匀，hash算法的结果就是均匀的，HashMap的默认长度为16,是为了**降低 hash 碰撞的概率。**
 2. 移位运算符，对于二进制运算非常快
 
 ###### 7：什么时候用红黑树什么时候用链表
@@ -532,7 +532,7 @@ public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneab
 
 2. 不支持 null 值和 null 键
 
-   HashTable 不支持null值和null键 ，而HashMap是因为对null做了特殊处理，将 null 的 hash 值定为了0，从而将其存放在哈希表的第0个bucket中；
+   HashTable **不支持 null 值和 null 键** ，而HashMap是因为对null做了特殊处理，将 null 的 hash 值定为了0，从而将其存放在哈希表的第0个bucket中；
 
 3. 初始容量和扩容机制不同
 

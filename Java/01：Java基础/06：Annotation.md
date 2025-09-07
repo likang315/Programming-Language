@@ -82,7 +82,7 @@
 public @interface MyAnnotation {
 	String name();
 	int[] ints();
-  // 类型 属性名() default 默认值 
+    // 类型 属性名() default 默认值 
 	String color() default "blue"；
 }
 // 使用注解
